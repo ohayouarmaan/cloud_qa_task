@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+import helpers
+import string
 import time
 import constants
 
@@ -12,7 +14,9 @@ driver.get(constants.URL)
 
 def check_form():
     form = driver.find_element(By.ID, "automationtestform")
-    pass
+    inputs = form.find_elements(By.TAG_NAME, "input")
+    for inp in inputs:
+        pass
 
 def check_iframe_without_id():
     pass
