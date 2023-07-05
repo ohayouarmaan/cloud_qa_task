@@ -64,7 +64,9 @@ def check_iframe_without_id():
     pass
 
 def check_iframe_with_id():
-    pass
+    driver.switch_to.frame(driver.find_element(By.ID, "iframeId"))
+    check_form()
+    driver.switch_to.default_content()
 
 if __name__ == "__main__":
-    check_form()
+    check_iframe_with_id()
