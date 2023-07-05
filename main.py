@@ -58,10 +58,35 @@ def check_form():
         if inp.get_attribute("type") == "submit":
             inp.click()
             break
-    time.sleep(10)
+    time.sleep(2)
+    driver.back()
 
-def check_iframe_without_id():
-    pass
+def check_iframe_without_id(last=False):
+    iframes = driver.find_elements(By.TAG_NAME, "iframe")
+    for iframe in iframes:
+        if(iframe.get_attribute("id") == ""):
+            driver.switch_to.frame(iframe)
+            check_form()
+            time.sleep(3)
+            break
+
+    driver.switch_to.default_content()
+    iframes = WebDriverWait(driver, 10).until(lambda x: x.find_elements(By.TAG_NAME, "iframe"))
+    print(iframes)
+    for iframe in iframes:
+        if(iframe.get_attribute("id") == ""):
+            driver.switch_to.frame(iframe)
+            iframe_ = driver.find_element(By.TAG_NAME, "iframe")
+            driver.switch_to.frame(iframe_)
+            check_form()
+            time.sleep(3)
+            break
+
+    driver.switch_to.default_content()
+
+
+            
+    
 
 def check_iframe_with_id():
     driver.switch_to.frame(driver.find_element(By.ID, "iframeId"))
@@ -69,4 +94,11 @@ def check_iframe_with_id():
     driver.switch_to.default_content()
 
 if __name__ == "__main__":
+    check_form()
+    driver.switch_to.default_content()
+    time.sleep(2)
+    check_iframe_without_id()
+    driver.switch_to.default_content()
+    time.sleep(2)
     check_iframe_with_id()
+    time.sleep(5)
